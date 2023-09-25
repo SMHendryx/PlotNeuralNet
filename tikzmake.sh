@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 
 python $1.py 
