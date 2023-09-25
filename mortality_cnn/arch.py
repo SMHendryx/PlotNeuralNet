@@ -31,12 +31,17 @@ arch.extend([
 
 
 
-    to_Flatten("flatten", 120, offset, "(pool4-east)", caption="Flatten"  ),
-    to_FullyConnected("linear1", 120, offset, "(flatten-east)", caption="Linear"  ),
-    to_FullyConnected("linear2", 84 ,offset, "(linear1-east)", caption="Linear"  ),
+    to_Flatten("flatten", 120, offset, "(pool4-east)", ), # caption="Flatten"  
+    to_connection("pool4", "flatten"),
+    to_FullyConnected("linear1", 120, offset, "(flatten-east)",), #  caption="Linear"  
+    to_connection("flatten", "linear1"),
 
-    to_SoftMax("softmax", 4 ,offset, "(linear2-east)", caption="Softmax"  ),
-    to_connection("pool4", "softmax"),    
+    to_FullyConnected("linear2", 84 ,offset, "(linear1-east)", ), # caption="Linear"  
+    to_connection("linear1", "linear2"),
+    to_FullyConnected("final-layer", 4 ,offset, "(linear2-east)", ), # caption="Linear"  
+    to_connection("linear2", "final-layer"),
+    to_SoftMax("softmax", 4 ,offset, "(final-layer-east)", ), # caption="Softmax"
+    to_connection("final-layer", "softmax"),    
     # to_Sum("sum1", offset="(1.5,0,0)", to="(softmax-east)", radius=2.5, opacity=0.6),
     # to_connection("softmax", "sum1"),
     to_end()

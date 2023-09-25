@@ -131,7 +131,7 @@
 \pic[shift={(1,0,0)}] at (pool4-east) 
     {Box={
         name=flatten,
-        caption=Flatten,
+        caption= ,
         xlabel={{" ","dummy"}},
         zlabel=120,
         fill=\FlattenColor,
@@ -142,10 +142,12 @@
         }
     };
 
+\draw [connection]  (pool4-east)    -- node {\midarrow} (flatten-west);
+
 \pic[shift={(1,0,0)}] at (flatten-east) 
     {RightBandedBox={
         name=linear1,
-        caption=Linear,
+        caption= ,
         xlabel={{" ","dummy"}},
         zlabel=120,
         fill=\FcColor,
@@ -157,10 +159,12 @@
         }
     };
 
+\draw [connection]  (flatten-east)    -- node {\midarrow} (linear1-west);
+
 \pic[shift={(1,0,0)}] at (linear1-east) 
     {RightBandedBox={
         name=linear2,
-        caption=Linear,
+        caption= ,
         xlabel={{" ","dummy"}},
         zlabel=84,
         fill=\FcColor,
@@ -172,10 +176,29 @@
         }
     };
 
+\draw [connection]  (linear1-east)    -- node {\midarrow} (linear2-west);
+
 \pic[shift={(1,0,0)}] at (linear2-east) 
+    {RightBandedBox={
+        name=final-layer,
+        caption= ,
+        xlabel={{" ","dummy"}},
+        zlabel=4,
+        fill=\FcColor,
+        bandfill=\FcReluColor,
+        opacity=0.8,
+        height=3,
+        width=1.5,
+        depth=25
+        }
+    };
+
+\draw [connection]  (linear2-east)    -- node {\midarrow} (final-layer-west);
+
+\pic[shift={(1,0,0)}] at (final-layer-east) 
     {Box={
         name=softmax,
-        caption=Softmax,
+        caption= ,
         xlabel={{" ","dummy"}},
         zlabel=4,
         fill=\SoftmaxColor,
@@ -186,7 +209,7 @@
         }
     };
 
-\draw [connection]  (pool4-east)    -- node {\midarrow} (softmax-west);
+\draw [connection]  (final-layer-east)    -- node {\midarrow} (softmax-west);
 
 \end{tikzpicture}
 \end{document}
